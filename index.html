@@ -5,11 +5,12 @@
   * It includes all components, styling, and content.
   *
   * === KEY FUNNEL STRUCTURE CHANGES ===
-  * 1. REPLACED "Problem 2" section with the new, 100% positive
-  * "Build Instant Trust. Get the Call." section (id="trust").
-  * 2. Added new TrustIcons helper object.
-  * 3. Updated nav link from "Be Found" to "Our Process" to better
-  * reflect the simplified funnel flow.
+  * 1. FIXED: Corrected a compilation error in the nav array.
+  * 2. RE-DESIGNED "Problem" sections: Removed "Be Found" and "Trust" sections
+  * and replaced them with a single, combined "Problem" section.
+  * 3. RE-DESIGNED "Services" section: Replaced the two 3-box grids with
+  * a clean, interactive Tabbed Interface.
+  * 4. UPDATED Navigation: Simplified main nav to 6 key items.
   */
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
@@ -138,8 +139,7 @@ const EmpathyIcons = {
 };
 
 /**
- * NEW Trust Icons
- * A helper object to store simple SVGs for the new Trust section.
+ * NEW Trust Icons (Used in combined Problem section)
  */
 const TrustIcons = {
   website: (props) => (
@@ -164,6 +164,39 @@ const TrustIcons = {
   )
 };
 
+/**
+ * Problem Icons (Used in combined Problem section)
+ */
+const ProblemIcons = {
+  google: (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.8 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.02 13.97 17.6 9.5 24 9.5z" /><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" /><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" /><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.4 0-11.98-4.47-13.96-10.47l-7.98 6.19C6.51 42.62 14.62 48 24 48z" /><path fill="none" d="M0 0h48v48H0z" /></svg>
+  ),
+  maps: (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133.2 199.3">
+      <path fill="#EA4335" d="M66.6 0C29.8 0 0 29.8 0 66.6c0 47.5 60.4 125.6 63.4 129.2.8 1 1.9 1.6 3.1 1.6s2.3-.6 3.1-1.6c3-3.6 63.4-81.7 63.4-129.2C133.2 29.8 103.4 0 66.6 0z"/>
+      <path fill="#A50E0E" d="M66.6 195.7c-1.2 0-2.3-.6-3.1-1.6-3 3.6-63.4-81.7-63.4-129.2C0 29.8 29.8 0 66.6 0v195.7z"/>
+      <path fill="#4285F4" d="M133.2 66.6c0 47.5-60.4 125.6-63.4 129.2-.8 1-1.9 1.6-3.1 1.6V0c36.8 0 66.6 29.8 66.6 66.6z"/>
+      <path fill="#1A73E8" d="M66.6 195.7V0c-36.8 0-66.6 29.8-66.6 66.6 0 47.5 60.4 125.6 63.4 129.2.8 1 1.9 1.6 3.1 1.6z"/>
+      <path fill="#FBBC05" d="M66.6 0v97.9c17.3 0 31.3-14 31.3-31.3S83.9 0 66.6 0z"/>
+      <path fill="#E2A100" d="M66.6 97.9V0C49.3 0 35.3 14 35.3 31.3S49.3 97.9 66.6 97.9z"/>
+      <path fill="#34A853" d="M66.6 0v97.9c-17.3 0-31.3-14-31.3-31.3S49.3 0 66.6 0z"/>
+      <path fill="#188038" d="M66.6 97.9V0C83.9 0 97.9 14 97.9 31.3S83.9 97.9 66.6 97.9z"/>
+      <path fill="#FFF" d="M66.6 97.9c17.3 0 31.3-14 31.3-31.3S83.9 35.3 66.6 35.3s-31.3 14-31.3 31.3 14 31.3 31.3 31.3z"/>
+    </svg>
+  ),
+  social: (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+      <path fill="#1877F2" d="M25,3C12.85,3,3,12.85,3,25c0,11.03,8.125,20.137,18.712,21.728V30.831h-5.413v-6.23h5.413v-4.66c0-5.352,3.181-8.303,8.066-8.303 c2.281,0,4.6,0.406,4.6,0.406v5.441h-2.76c-2.65,0-3.481,1.622-3.481,3.326v3.791h6.116l-0.977,6.23h-5.139v15.897 C38.875,45.137,47,36.03,47,25C47,12.85,37.15,3,25,3z"/>
+    </svg>
+  ),
+  ai: (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+      <path fill="#10A37F" d="M39.62,10.38C35.586,6.346,30.468,4,25,4C12.85,4,3,13.85,3,26c0,5.437,1.93,10.435,5.176,14.37 l-1.391,5.011l5.12-1.346C15.867,46.06,20.28,47,25,47c12.15,0,22-9.85,22-22C47,20.532,44.654,14.414,39.62,10.38z M26,38.25 c-6.425,0-11.625-5.2-11.625-11.625S19.575,15,26,15s11.625,5.2,11.625,11.625S32.425,38.25,26,38.25z"/>
+      <path fill="#FFFFFF" d="M26,17c-5.1,0-9.25,4.15-9.25,9.25S20.9,35.5,26,35.5s9.25-4.15,9.25-9.25S31.1,17,26,17z M26,31.75 c-1.517,0-2.75-1.233-2.75-2.75s1.233-2.75,2.75-2.75s2.75,1.233,2.75,2.75S27.517,31.75,26,31.75z M31.5,24.25 c-1.517,0-2.75-1.233-2.75-2.75s1.233-2.75,2.75-2.75s2.75,1.233,2.75,2.75S33.017,24.25,31.5,24.25z M20.5,24.25 c-1.517,0-2.75-1.233-2.75-2.75s1.233-2.75,2.75-2.75s2.75,1.233,2.75,2.75S22.017,24.25,20.5,24.25z"/>
+    </svg>
+  )
+};
+
 
 // --- CONTENT OBJECT ---
 // All text content for the site is managed here.
@@ -173,14 +206,14 @@ const content = {
     tagline: "Your central partner for digital growth.",
     oneLiner: "We're your central partner, managing your complete digital presence—from web and SEO to ads and AI—so you win more jobs."
   },
+  // UPDATED NAV
   nav: [
     { name: "Home", href: "#home" },
-    { name: "Your Goals", href: "#empathy" },
-    { name: "Our Process", href: "#process" }, // Simplified nav
     { name: "Services", href: "#services" },
     { name: "Our Proof", href: "#proof" },
     { name: "Our Team", href: "#team" },
     { name: "FAQ", href: "#faq" },
+    { name: "Contact", href: "#contact" },
   ],
   hero: {
     h1: "Focus On Your Work. We'll Fill Your Schedule.",
@@ -208,89 +241,30 @@ const content = {
       }
     ]
   },
-  beFound: {
-    title: "Are You Being Found Where It Matters?",
-    intro: "Your customers are looking for you on more than just Google. We make sure you show up everywhere—turning all angles into new quote requests.",
-    items: [
-      {
-        id: "google",
-        title: "Google Search",
-        icon: (props) => (
-          <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.8 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.02 13.97 17.6 9.5 24 9.5z" /><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" /><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" /><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.4 0-11.98-4.47-13.96-10.47l-7.98 6.19C6.51 42.62 14.62 48 24 48z" /><path fill="none" d="M0 0h48v48H0z" /></svg>
-        ),
-      },
-      {
-        id: "maps",
-        title: "Google Maps",
-        icon: (props) => ( // Correct, Official Google Maps icon
-          <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133.2 199.3">
-            <path fill="#EA4335" d="M66.6 0C29.8 0 0 29.8 0 66.6c0 47.5 60.4 125.6 63.4 129.2.8 1 1.9 1.6 3.1 1.6s2.3-.6 3.1-1.6c3-3.6 63.4-81.7 63.4-129.2C133.2 29.8 103.4 0 66.6 0z"/>
-            <path fill="#A50E0E" d="M66.6 195.7c-1.2 0-2.3-.6-3.1-1.6-3 3.6-63.4-81.7-63.4-129.2C0 29.8 29.8 0 66.6 0v195.7z"/>
-            <path fill="#4285F4" d="M133.2 66.6c0 47.5-60.4 125.6-63.4 129.2-.8 1-1.9 1.6-3.1 1.6V0c36.8 0 66.6 29.8 66.6 66.6z"/>
-            <path fill="#1A73E8" d="M66.6 195.7V0c-36.8 0-66.6 29.8-66.6 66.6 0 47.5 60.4 125.6 63.4 129.2.8 1 1.9 1.6 3.1 1.6z"/>
-            <path fill="#FBBC05" d="M66.6 0v97.9c17.3 0 31.3-14 31.3-31.3S83.9 0 66.6 0z"/>
-            <path fill="#E2A100" d="M66.6 97.9V0C49.3 0 35.3 14 35.3 31.3S49.3 97.9 66.6 97.9z"/>
-            <path fill="#34A853" d="M66.6 0v97.9c-17.3 0-31.3-14-31.3-31.3S49.3 0 66.6 0z"/>
-            <path fill="#188038" d="M66.6 97.9V0C83.9 0 97.9 14 97.9 31.3S83.9 97.9 66.6 97.9z"/>
-            <path fill="#FFF" d="M66.6 97.9c17.3 0 31.3-14 31.3-31.3S83.9 35.3 66.6 35.3s-31.3 14-31.3 31.3 14 31.3 31.3 31.3z"/>
-          </svg>
-        ),
-      },
-      {
-        id: "social",
-        title: "Social Media",
-        icon: (props) => (
-          <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-            <path fill="#1877F2" d="M25,3C12.85,3,3,12.85,3,25c0,11.03,8.125,20.137,18.712,21.728V30.831h-5.413v-6.23h5.413v-4.66c0-5.352,3.181-8.303,8.066-8.303 c2.281,0,4.6,0.406,4.6,0.406v5.441h-2.76c-2.65,0-3.481,1.622-3.481,3.326v3.791h6.116l-0.977,6.23h-5.139v15.897 C38.875,45.137,47,36.03,47,25C47,12.85,37.15,3,25,3z"/>
-          </svg>
-        ),
-      },
-      {
-        id: "ai",
-        title: "AI Answers",
-        icon: (props) => ( // ChatGPT logo
-          <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-            <path fill="#10A37F" d="M39.62,10.38C35.586,6.346,30.468,4,25,4C12.85,4,3,13.85,3,26c0,5.437,1.93,10.435,5.176,14.37 l-1.391,5.011l5.12-1.346C15.867,46.06,20.28,47,25,47c12.15,0,22-9.85,22-22C47,20.532,44.654,14.414,39.62,10.38z M26,38.25 c-6.425,0-11.625-5.2-11.625-11.625S19.575,15,26,15s11.625,5.2,11.625,11.625S32.425,38.25,26,38.25z"/>
-            <path fill="#FFFFFF" d="M26,17c-5.1,0-9.25,4.15-9.25,9.25S20.9,35.5,26,35.5s9.25-4.15,9.25-9.25S31.1,17,26,17z M26,31.75 c-1.517,0-2.75-1.233-2.75-2.75s1.233-2.75,2.75-2.75s2.75,1.233,2.75,2.75S27.517,31.75,26,31.75z M31.5,24.25 c-1.517,0-2.75-1.233-2.75-2.75s1.233-2.75,2.75-2.75s2.75,1.233,2.75,2.75S33.017,24.25,31.5,24.25z M20.5,24.25 c-1.517,0-2.75-1.233-2.75-2.75s1.233-2.75,2.75-2.75s2.75,1.233,2.75,2.75S22.017,24.25,20.5,24.25z"/>
-          </svg>
-        ),
-      },
-    ],
-    col1: {
-      title: "Show Up in Searches",
-      desc: "When customers search on Google or look at maps for a service you provide, you need to be there. We build your foundation to make you the obvious choice."
+  // NEW COMBINED PROBLEM SECTION
+  problem: {
+    title: "Are You Being Found? And Do They Trust You?",
+    sub: "Getting found is step one. But if your online presence looks unprofessional, you're not getting calls—you're getting skipped. We solve both problems.",
+    problem1: {
+      title: "You're Missing Customers On:",
+      icon: "trustX", // Using the X icon
+      items: [
+        { id: "google", title: "Google Search", icon: ProblemIcons.google },
+        { id: "maps", title: "Google Maps", icon: ProblemIcons.maps },
+        { id: "social", title: "Social Media", icon: ProblemIcons.social },
+        { id: "ai", title: "AI Answers", icon: ProblemIcons.ai }
+      ]
     },
-    col2: {
-      title: "Become the Answer",
-      desc: "Soon, customers will just ask their phone or AI, 'Who's the best roofer near me?' We structure your online presence to ensure you are the trusted, recommended answer."
+    problem2: {
+      title: "Your Presence Is Costing You Jobs If It's:",
+      icon: "trustX",
+      items: [
+        "Outdated or looks like 2005",
+        "Slow to load on a phone",
+        "Missing 5-star reviews",
+        "Hard to find your phone number"
+      ]
     }
-  },
-  // REPLACED "Problem 2" with "Trust" Section
-  trust: {
-    title: "Build Instant Trust. Get the Call.",
-    sub: "Getting found is step one. We make sure you look like the high-quality professional you are, so that click turns into a booked job.",
-    pillars: [
-      {
-        icon: "website",
-        title: "Look Like the Professional You Are",
-        desc: "Your website will be modern, clean, and fast—a digital storefront that reflects the high quality of your work."
-      },
-      {
-        icon: "reviews",
-        title: "Showcase Your 5-Star Reputation",
-        desc: "We'll make your best reviews and completed projects front and center, proving to new customers that you are the right choice."
-      },
-      {
-        icon: "mobile",
-        title: "Make It Easy for Them",
-        desc: "We ensure your site is simple to use on any device, with a clear 'Click-to-Call' button that gets you the quote request."
-      },
-      {
-        icon: "everywhere",
-        title: "Be Professional Everywhere",
-        desc: "We'll align your Google Profile and social media to match your website, building trust no matter where they find you."
-      }
-    ]
   },
   why: {
     title: "Why Axis Digital?",
@@ -324,12 +298,12 @@ const content = {
     members: [ 
       {
         name: "Simon",
-        role: "Consultation & Strategy",
+        role: "Business Development",
         image: "https://placehold.co/400x400/0C4853/FFFFFF?text=Simon"
       },
       {
         name: "Sebastien",
-        role: "Technology & Growth",
+        role: "Strategy & Technology",
         image: "https://placehold.co/400x400/0C4853/FFFFFF?text=Sebastien"
       },
       {
@@ -339,12 +313,12 @@ const content = {
       },
       {
         name: "Azim",
-        role: "Paid Ads",
+        role: "Paid Ads Manager",
         image: "https://placehold.co/400x400/cccccc/FFFFFF?text=Azim"
       },
       {
         name: "Erica",
-        role: "Social Media",
+        role: "Social Media & Marketing",
         image: "https://placehold.co/400x400/cccccc/FFFFFF?text=Erica"
       },
       {
@@ -1046,6 +1020,7 @@ export default function App() {
   useScrollManager(c.nav); // Scroll hook
   const [isModalOpen, setModalOpen] = useState(false); // Contact modal state
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false); // Mobile nav state
+  const [activeServiceTab, setActiveServiceTab] = useState('foundation'); // State for service tabs
 
   // --- HEAD & METADATA INJECTION ---
   useEffect(() => {
@@ -1139,7 +1114,7 @@ export default function App() {
       schemaFaq.type = 'application/ld+json';
       schemaFaq.innerHTML = `
         {
-          "@context": "https://schema.org",
+          "@context": "httpsS://schema.org",
           "@type": "FAQPage",
           "mainEntity": [
             ${c.faq.items.map(item => `{
@@ -1303,53 +1278,67 @@ export default function App() {
           </div>
         </Section>
 
-        {/* --- BE FOUND SECTION --- */}
-        <Section id="befound" className="bg-white">
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4 text-center text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
-            {c.beFound.title}
-          </h2>
-          <p className="text-lg text-center text-gray-700 mb-12 opacity-0 translate-y-2 reveal" style={{ transitionDelay: '100ms' }}>
-            {c.beFound.intro}
-          </p>
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            {/* Icons */}
-            <div className="grid grid-cols-2 gap-8 reveal" style={{ transitionDelay: '200ms' }}>
-              {c.beFound.items.map((item) => (
-                <div key={item.id} className="flex flex-col items-center text-center">
-                  <div className={`w-24 h-24 rounded-full bg-white shadow-lg flex items-center justify-center p-4 ${item.color || ''}`}>
-                    <item.icon className="w-full h-full object-contain" />
+        {/* --- NEW COMBINED PROBLEM SECTION --- */}
+        <Section id="problem" className="bg-white">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
+              {c.problem.title}
+            </h2>
+            <p className="text-lg text-gray-700 mt-4 max-w-3xl mx-auto opacity-0 translate-y-2 reveal" style={{ transitionDelay: '100ms' }}>
+              {c.problem.sub}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 mt-12 max-w-5xl mx-auto">
+            {/* Column 1: Problem 1 (Invisibility) */}
+            <div className="bg-gray-50 p-8 rounded-[var(--radius)] shadow-lg reveal" style={{ transitionDelay: '200ms' }}>
+              <div className="flex items-center gap-3 mb-6">
+                <WhyUsIcons.trustX className="w-8 h-8 text-red-500 flex-shrink-0" />
+                <h3 className="text-2xl font-bold text-red-700">{c.problem.problem1.title}</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                {c.problem.problem1.items.map((item) => (
+                  <div key={item.id} className="flex flex-col items-center text-center">
+                    <div className={`w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center p-3`}>
+                      <item.icon className="w-full h-full object-contain" />
+                    </div>
+                    <h4 className="mt-3 font-semibold text-lg text-[color:var(--color-primary)]">{item.title}</h4>
                   </div>
-                  <h3 className="mt-4 font-semibold text-lg text-[color:var(--color-primary)]">{item.title}</h3>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-            {/* Text Content */}
-            <div className="space-y-8 reveal" style={{ transitionDelay: '300ms' }}>
-              <div>
-                <h3 className="text-2xl font-bold text-[color:var(--color-primary)] mb-2">{c.beFound.col1.title}</h3>
-                <p className="text-gray-700 leading-relaxed">{c.beFound.col1.desc}</p>
+            {/* Column 2: Problem 2 (No Trust) */}
+            <div className="bg-red-50 p-8 rounded-[var(--radius)] shadow-lg reveal" style={{ transitionDelay: '300ms' }}>
+              <div className="flex items-center gap-3 mb-6">
+                <WhyUsIcons.trustX className="w-8 h-8 text-red-500 flex-shrink-0" />
+                <h3 className="text-2xl font-bold text-red-700">{c.problem.problem2.title}</h3>
               </div>
-              <div>
-                <h3 className="text-2xl font-bold text-[color:var(--color-primary)] mb-2">{c.beFound.col2.title}</h3>
-                <p className="text-gray-700 leading-relaxed">{c.beFound.col2.desc}</p>
-              </div>
+               <ul className="space-y-3">
+                {c.problem.problem2.items.map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-lg text-gray-700">
+                    <span className="text-red-500">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </Section>
-        
-        {/* --- NEW TRUST SECTION (REPLACES PROBLEM 2) --- */}
-        <Section id="trust" className="bg-gray-50">
+
+        {/* --- REVISED WHY US SECTION --- */}
+        <Section id="why" className="bg-gray-50">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
-              {c.trust.title}
+              {c.why.title}
             </h2>
-            <p className="text-xl text-gray-700 mt-4 max-w-3xl mx-auto opacity-0 translate-y-2 reveal" style={{ transitionDelay: '100ms' }}>
-              {c.trust.sub}
+             <p className="text-xl text-gray-700 mt-4 max-w-3xl mx-auto opacity-0 translate-y-2 reveal" style={{ transitionDelay: '100ms' }}>
+              {c.why.sub}
             </p>
           </div>
           <div className="grid md:grid-cols-4 gap-6 mt-12">
-            {c.trust.pillars.map((p, i) => {
-              const Icon = TrustIcons[p.icon];
+            {c.why.pillars.map((p, i) => {
+              const Icon = WhyUsIcons[p.icon];
               return (
                 <div 
                   key={i} 
@@ -1369,98 +1358,87 @@ export default function App() {
           </div>
         </Section>
 
-        {/* --- REVISED WHY US SECTION --- */}
-        <Section id="why" className="bg-white">
-          <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
-              {c.why.title}
-            </h2>
-             <p className="text-xl text-gray-700 mt-4 max-w-3xl mx-auto opacity-0 translate-y-2 reveal" style={{ transitionDelay: '100ms' }}>
-              {c.why.sub}
-            </p>
-          </div>
-          <div className="grid md:grid-cols-4 gap-6 mt-12">
-            {c.why.pillars.map((p, i) => {
-              const Icon = WhyUsIcons[p.icon];
-              return (
-                <div 
-                  key={i} 
-                  className="p-6 bg-gray-50 rounded-[var(--radius)] shadow-lg text-center reveal"
-                  style={{ transitionDelay: `${(i + 1) * 100}ms` }}
-                >
-                  {Icon && (
-                    <div className="w-16 h-16 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Icon className="w-8 h-8" />
-                    </div>
-                  )}
-                  <h3 className="text-xl font-bold text-[color:var(--color-primary)] mb-2">{p.title}</h3>
-                  <p className="text-gray-700">{p.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </Section>
-
-        {/* --- RESTRUCTURED SERVICES SECTION --- */}
-        <Section id="services" className="bg-gray-50">
+        {/* --- NEW TABBED SERVICES SECTION --- */}
+        <Section id="services" className="bg-white">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
               {c.services.title}
             </h2>
           </div>
           
-          {/* Foundation Services */}
-          <div className="mb-16">
-            <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8 opacity-0 translate-y-2 reveal">
-              {c.services.foundation.title}
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              {c.services.foundation.items.map((s, i) => {
-                const Icon = ServiceIcons[s.icon];
-                return (
-                  <div
-                    key={i}
-                    className="p-8 bg-white rounded-[var(--radius)] shadow-lg reveal text-center"
-                    style={{ transitionDelay: `${i * 100}ms` }}
-                  >
-                    {Icon && (
-                      <div className="w-16 h-16 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Icon className="w-8 h-8" />
-                      </div>
-                    )}
-                    <h4 className="text-xl font-bold mb-2 text-[color:var(--color-primary)]">{s.title}</h4>
-                    <p className="text-gray-700">{s.desc}</p>
-                  </div>
-                );
-              })}
+          {/* Tab Buttons */}
+          <div className="flex justify-center mb-8 reveal" style={{ transitionDelay: '100ms' }}>
+            <div className="flex p-1 bg-gray-200 rounded-full">
+              <button
+                onClick={() => setActiveServiceTab('foundation')}
+                className={`w-full md:w-auto px-6 py-3 rounded-full text-lg font-semibold transition-all ${
+                  activeServiceTab === 'foundation' 
+                    ? 'bg-[color:var(--color-primary)] text-white shadow' 
+                    : 'text-gray-600 hover:bg-gray-300'
+                }`}
+              >
+                {c.services.foundation.title}
+              </button>
+              <button
+                onClick={() => setActiveServiceTab('growth')}
+                className={`w-full md:w-auto px-6 py-3 rounded-full text-lg font-semibold transition-all ${
+                  activeServiceTab === 'growth' 
+                    ? 'bg-[color:var(--color-primary)] text-white shadow' 
+                    : 'text-gray-600 hover:bg-gray-300'
+                }`}
+              >
+                {c.services.growth.title}
+              </button>
             </div>
           </div>
           
-          {/* Growth Services */}
-          <div>
-            <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8 opacity-0 translate-y-2 reveal">
-              {c.services.growth.title}
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              {c.services.growth.items.map((s, i) => {
-                const Icon = ServiceIcons[s.icon];
-                return (
-                  <div
-                    key={i}
-                    className="p-8 bg-white rounded-[var(--radius)] shadow-lg reveal text-center"
-                    style={{ transitionDelay: `${(i + 3) * 100}ms` }}
-                  >
-                    {Icon && (
-                      <div className="w-16 h-16 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Icon className="w-8 h-8" />
-                      </div>
-                    )}
-                    <h4 className="text-xl font-bold mb-2 text-[color:var(--color-primary)]">{s.title}</h4>
-                    <p className="text-gray-700">{s.desc}</p>
-                  </div>
-                );
-              })}
-            </div>
+          {/* Tab Content */}
+          <div className="reveal" style={{ transitionDelay: '200ms' }}>
+            {/* Foundation Services Content */}
+            {activeServiceTab === 'foundation' && (
+              <div className="grid md:grid-cols-3 gap-6">
+                {c.services.foundation.items.map((s, i) => {
+                  const Icon = ServiceIcons[s.icon];
+                  return (
+                    <div
+                      key={i}
+                      className="p-8 bg-gray-50 rounded-[var(--radius)] shadow-lg reveal text-center"
+                    >
+                      {Icon && (
+                        <div className="w-16 h-16 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Icon className="w-8 h-8" />
+                        </div>
+                      )}
+                      <h4 className="text-xl font-bold mb-2 text-[color:var(--color-primary)]">{s.title}</h4>
+                      <p className="text-gray-700">{s.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+            
+            {/* Growth Services Content */}
+            {activeServiceTab === 'growth' && (
+              <div className="grid md:grid-cols-3 gap-6">
+                {c.services.growth.items.map((s, i) => {
+                  const Icon = ServiceIcons[s.icon];
+                  return (
+                    <div
+                      key={i}
+                      className="p-8 bg-gray-50 rounded-[var(--radius)] shadow-lg reveal text-center"
+                    >
+                      {Icon && (
+                        <div className="w-16 h-16 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Icon className="w-8 h-8" />
+                        </div>
+                      )}
+                      <h4 className="text-xl font-bold mb-2 text-[color:var(--color-primary)]">{s.title}</h4>
+                      <p className="text-gray-700">{s.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </Section>
 
