@@ -5,9 +5,11 @@
   * It includes all components, styling, and content.
   *
   * === KEY FUNNEL STRUCTURE CHANGES ===
-  * 1. REPLACED "Partners" section with a unified 6-person "Your Expert Team" grid.
-  * 2. Removed "Head of" titles for a cleaner, more partner-focused feel.
-  * 3. Updated roles for Simon, Sebastien, and Lola.
+  * 1. REPLACED "Problem 2" section with the new, 100% positive
+  * "Build Instant Trust. Get the Call." section (id="trust").
+  * 2. Added new TrustIcons helper object.
+  * 3. Updated nav link from "Be Found" to "Our Process" to better
+  * reflect the simplified funnel flow.
   */
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
@@ -135,6 +137,33 @@ const EmpathyIcons = {
   )
 };
 
+/**
+ * NEW Trust Icons
+ * A helper object to store simple SVGs for the new Trust section.
+ */
+const TrustIcons = {
+  website: (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  ),
+  reviews: (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+    </svg>
+  ),
+  mobile: (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+    </svg>
+  ),
+  everywhere: (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.657l-2.12 2.122" />
+    </svg>
+  )
+};
+
 
 // --- CONTENT OBJECT ---
 // All text content for the site is managed here.
@@ -144,20 +173,18 @@ const content = {
     tagline: "Your central partner for digital growth.",
     oneLiner: "We're your central partner, managing your complete digital presence—from web and SEO to ads and AI—so you win more jobs."
   },
-  // UPDATED NAV
   nav: [
     { name: "Home", href: "#home" },
+    { name: "Your Goals", href: "#empathy" },
+    { name: "Our Process", href: "#process" }, // Simplified nav
     { name: "Services", href: "#services" },
     { name: "Our Proof", href: "#proof" },
     { name: "Our Team", href: "#team" },
     { name: "FAQ", href: "#faq" },
-    { name: "Contact", href: "#contact" },
   ],
   hero: {
     h1: "Focus On Your Work. We'll Fill Your Schedule.",
     sub: "We handle all your digital marketing—from your website and Google to social media—turning your online presence into a reliable source of new quote requests and booked jobs.",
-    cta: "See Our Work",
-    ctaHref: "#proof",
     imageUrl: "https://placehold.co/800x600/0C4853/FFFFFF?text=Your+Digital+Partners"
   },
   empathy: {
@@ -238,29 +265,32 @@ const content = {
       desc: "Soon, customers will just ask their phone or AI, 'Who's the best roofer near me?' We structure your online presence to ensure you are the trusted, recommended answer."
     }
   },
-  problem2: {
-    title: "And When They Find You, Do They Trust You?",
-    sub: "Getting found is only half the battle. If your website is slow, outdated, or broken on a phone, you're not getting calls. You're losing jobs.",
-    left: {
-      title: "Trust-Killing Mistakes",
-      icon: "trustX",
-      items: [
-        "Slow to load",
-        "Outdated 2002 design",
-        "Hard to find phone number",
-        "Broken on a mobile phone"
-      ]
-    },
-    right: {
-      title: "Job-Winning Signals",
-      icon: "trustCheck",
-      items: [
-        "Looks professional & fast",
-        "Builds instant trust",
-        "Clear 'Click to Call' button",
-        "Works perfectly everywhere"
-      ]
-    }
+  // REPLACED "Problem 2" with "Trust" Section
+  trust: {
+    title: "Build Instant Trust. Get the Call.",
+    sub: "Getting found is step one. We make sure you look like the high-quality professional you are, so that click turns into a booked job.",
+    pillars: [
+      {
+        icon: "website",
+        title: "Look Like the Professional You Are",
+        desc: "Your website will be modern, clean, and fast—a digital storefront that reflects the high quality of your work."
+      },
+      {
+        icon: "reviews",
+        title: "Showcase Your 5-Star Reputation",
+        desc: "We'll make your best reviews and completed projects front and center, proving to new customers that you are the right choice."
+      },
+      {
+        icon: "mobile",
+        title: "Make It Easy for Them",
+        desc: "We ensure your site is simple to use on any device, with a clear 'Click-to-Call' button that gets you the quote request."
+      },
+      {
+        icon: "everywhere",
+        title: "Be Professional Everywhere",
+        desc: "We'll align your Google Profile and social media to match your website, building trust no matter where they find you."
+      }
+    ]
   },
   why: {
     title: "Why Axis Digital?",
@@ -288,7 +318,6 @@ const content = {
       }
     ]
   },
-  // UPDATED TEAM SECTION
   team: {
     title: "Your Expert Team",
     headline: "You get a single, dedicated team of specialists, led by our founders.",
@@ -1193,34 +1222,50 @@ export default function App() {
 
       {/* --- MAIN CONTENT --- */}
       <main>
-        {/* --- HERO SECTION --- */}
+        {/* --- HERO SECTION (NEW VSL LAYOUT) --- */}
         <div className="bg-white">
           <Section id="hero" className="py-20 md:py-32">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Text Content */}
+            <div className="max-w-4xl mx-auto text-center">
+              {/* 1. Title Above */}
               <div className="reveal">
                 <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-[color:var(--color-primary)]">
                   {c.hero.h1}
                 </h1>
-                <p className="mt-5 text-lg text-gray-700 max-w-xl">
-                  {c.hero.sub}
-                </p>
-                <a
-                  href={c.hero.ctaHref}
-                  className="inline-block mt-8 px-8 py-3 rounded-full font-semibold text-[color:var(--color-primary)] border-2 border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent)] hover:text-white transition-all transform hover:scale-105"
-                >
-                  {c.hero.cta}
-                </a>
               </div>
-              
-              {/* Image Content */}
-              <div className="reveal">
+
+              {/* 2. Centered Image/Video (with VSL hint) */}
+              <div className="reveal my-8 md:my-12 relative" style={{ transitionDelay: '100ms' }}>
                 <img
                   src={c.hero.imageUrl}
                   alt="Axis Digital Partners"
-                  className="rounded-[var(--radius)] shadow-xl w-full h-auto object-cover"
+                  className="rounded-[var(--radius)] shadow-xl w-full max-w-3xl mx-auto h-auto object-cover"
                   onError={(e) => e.target.src = 'https://placehold.co/800x600/cccccc/FFFFFF?text=Image+Loading...'}
                 />
+                {/* VSL Play Button Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <button 
+                    className="bg-white/20 backdrop-blur-sm rounded-full w-20 h-20 md:w-24 md:h-24 flex items-center justify-center text-white transition-all hover:scale-110 hover:bg-white/40"
+                    aria-label="Play video"
+                  >
+                    <svg className="w-12 h-12 md:w-16 md:h-16 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* 3. Sub-headline & CTA Below */}
+              <div className="reveal" style={{ transitionDelay: '200ms' }}>
+                <p className="mt-5 text-lg text-gray-700 max-w-2xl mx-auto">
+                  {c.hero.sub}
+                </p>
+                
+                {/* Updated CTA to open modal */}
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="inline-block mt-8 px-10 py-4 rounded-full font-semibold text-white transition-transform transform hover:scale-105"
+                  style={{ background: "var(--color-accent)", boxShadow: "var(--shadow)" }}
+                >
+                  Book Your Free Consultation
+                </button>
               </div>
             </div>
           </Section>
@@ -1292,51 +1337,35 @@ export default function App() {
           </div>
         </Section>
         
-        {/* --- NEW PROBLEM 2 SECTION --- */}
-        <Section id="problem2" className="bg-gray-50">
+        {/* --- NEW TRUST SECTION (REPLACES PROBLEM 2) --- */}
+        <Section id="trust" className="bg-gray-50">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
-              {c.problem2.title}
+              {c.trust.title}
             </h2>
-            <p className="text-lg text-gray-700 mt-4 max-w-3xl mx-auto opacity-0 translate-y-2 reveal" style={{ transitionDelay: '100ms' }}>
-              {c.problem2.sub}
+            <p className="text-xl text-gray-700 mt-4 max-w-3xl mx-auto opacity-0 translate-y-2 reveal" style={{ transitionDelay: '100ms' }}>
+              {c.trust.sub}
             </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
-            {/* Column 1: Trust-Killing Mistakes */}
-            <div className="bg-red-50 p-8 rounded-[var(--radius)] shadow-lg reveal" style={{ transitionDelay: '200ms' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <WhyUsIcons.trustX className="w-8 h-8 text-red-500 flex-shrink-0" />
-                <h3 className="text-2xl font-bold text-red-700">{c.problem2.left.title}</h3>
-              </div>
-              <ul className="space-y-2">
-                {c.problem2.left.items.map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-lg text-gray-700">
-                    <span className="text-red-500">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* Column 2: Job-Winning Signals */}
-            <div className="bg-green-50 p-8 rounded-[var(--radius)] shadow-lg reveal" style={{ transitionDelay: '300ms' }}>
-              <div className="flex items-center gap-3 mb-4">
-                <WhyUsIcons.trustCheck className="w-8 h-8 text-green-600 flex-shrink-0" />
-                <h3 className="text-2xl font-bold text-green-800">{c.problem2.right.title}</h3>
-              </div>
-               <ul className="space-y-2">
-                {c.problem2.right.items.map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-lg text-gray-700">
-                    <span className="text-green-600">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="grid md:grid-cols-4 gap-6 mt-12">
+            {c.trust.pillars.map((p, i) => {
+              const Icon = TrustIcons[p.icon];
+              return (
+                <div 
+                  key={i} 
+                  className="p-6 bg-white rounded-[var(--radius)] shadow-lg text-center reveal"
+                  style={{ transitionDelay: `${(i + 1) * 100}ms` }}
+                >
+                  {Icon && (
+                    <div className="w-16 h-16 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-8 h-8" />
+                    </div>
+                  )}
+                  <h3 className="text-xl font-bold text-[color:var(--color-primary)] mb-2">{p.title}</h3>
+                  <p className="text-gray-700">{p.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </Section>
 
@@ -1618,3 +1647,4 @@ export default function App() {
     </>
   );
 }
+
