@@ -78,8 +78,23 @@
       color: white;
       font-size: 1.875rem; /* 30px */
       font-weight: 800;
-      border: 6px solid #F8F9FA; /* Same as bg-gray-50 */
+      /* --- FIX: BORDER COLOR --- 
+        The border color for the process number must match the section's
+        background color. I am setting this dynamically, but the JS
+        will need to know which color to use. 
+        Setting a default here, but will adjust in the 'system' section's JS/CSS.
+      */
+      border: 6px solid #F8F9FA; /* Default: bg-gray-50 */
     }
+    
+    /* Ensure process number border matches the section BG */
+    #system.bg-gray-50 .process-number {
+       border-color: #F8F9FA; /* bg-gray-50 */
+    }
+    #system.bg-white .process-number {
+       border-color: #FFFFFF; /* bg-white */
+    }
+    
   </style>
 </head>
 <body>
@@ -141,14 +156,10 @@
             <path strokeLinecap="round" strokeLinejoin="round" d="M18 18l-6-6-6 6" />
         </svg>
       ),
-      trustX: (props) => (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      trustCheck: (props) => (
-        <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      // Icon for checklist
+      check: (props) => (
+         <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       )
     };
@@ -224,53 +235,72 @@
       // UPDATED NAV
       nav: [
         { name: "Home", href: "#home" },
-        { name: "The Problem", href: "#problem" },
+        { name: "The Problem", href: "#growth-audit" }, // <-- UPDATED LINK
         { name: "Our System", href: "#system" },
         { name: "Our Team", href: "#team" },
         { name: "Proof", href: "#proof" },
         { name: "FAQ", href: "#faq" },
       ],
       hero: {
-        h1: "Focus On Your Work. We'll Fill Your Schedule.",
-        sub: "We handle all your digital marketing—from your website and Google to social media—turning your online presence into a reliable source of new quote requests and booked jobs.",
-        imageUrl: "https://placehold.co/800x600/0C4853/FFFFFF?text=Your+Digital+Partners"
+        h1: "We Help Contractors & Trades Get Booked Solid.", // <-- UPDATED H1
+        sub: "We build your complete digital system—from web and SEO to ads and AI—to turn your online presence into a reliable source of new quote requests and booked jobs.", // <-- UPDATED SUB
+        cta: "Start Filling Your Schedule" // <-- NEW CTA
       },
       empathy: {
-        title: "Built for Contractors Who Want to Grow",
-        sub: "You're a master at your trade. You deserve a professional online presence that reflects your quality and brings you the jobs you want. We partner with you to build a system that delivers:",
+        title: "You're a Master of Your Trade, Not a Marketing Expert.", // <-- UPDATED TITLE
+        sub: "Your expertise is in building and crafting. Ours is in building the expert digital system that gets you the high-quality jobs you deserve.", // <-- UPDATED SUB
         pillars: [
           {
             icon: "schedule",
-            title: "A Steady Flow of Work",
-            desc: "A reliable stream of quote requests to keep your schedule full."
+            title: "A Steady Flow of Work", // <-- UPDATED PILLAR 1
+            desc: "We build a predictable system that delivers a reliable stream of quote requests to keep your schedule full."
           },
           {
             icon: "quality",
-            title: "Higher-Quality Clients",
-            desc: "Attract the profitable, ideal clients who value your craft."
+            title: "Higher-Quality Clients", // <-- UPDATED PILLAR 2
+            desc: "Our system is designed to attract the profitable, ideal clients who value your craft, not just shop for the lowest price."
           },
           {
             icon: "growth",
-            title: "Sustainable, Long-Term Growth",
-            desc: "A professional system that lets you focus on your work, not on finding it."
+            title: "Sustainable, Long-Term Growth", // <-- UPDATED PILLAR 3
+            desc: "You get a professional, automated system that lets you focus on your work, not on finding it."
           }
         ]
       },
-      // NEW UNIFIED "PROBLEM" SECTION
-      problem: {
-        title: "Stop Wasting Money on Marketing That Doesn't Work.",
-        sub: "You wouldn't build on a broken foundation. The same goes for your marketing. A great-looking website is useless if no one can find it. And running ads is a waste of money if your website doesn't turn visitors into calls.",
-        left: {
-          title: "The \"Piecemeal\" Approach",
-          desc: "This is what most contractors have. A disconnected website, an old Google profile, and random ads. It's a 'leaky bucket' that loses you jobs.",
-          visual_text: "Piecemeal Marketing"
-        },
-        right: {
-          title: "The \"Axis\" System",
-          desc: "We fix the leaks first. We build a complete, unified system where your website, Google ranking, and ads all work together to do one thing: get you booked jobs.",
-          visual_text: "A Complete System"
-        }
+      
+      // --- NEW MERGED "GROWTH AUDIT" SECTION ---
+      growthAudit: {
+        title: "Your 2-Minute Growth Audit",
+        sub: "A successful online system does two things: It gets you *found* by the right clients, and it *converts* them into booked jobs. How does yours stack up?",
+        columns: [
+          {
+            title: "Challenge 1: Are You Being Found?",
+            ask: "Ask yourself: When a client searches for your trade...",
+            items: [
+              "Do you appear on the **first page of Google Search?**",
+              "Are you a **Top 3 result on Google Maps** in your area?",
+              "Do you show up **in front of your main competitors?**",
+              "Are you visible to **AI and voice searches** (e.g., \"Hey Google...\")?",
+              "Are you attracting your **ideal, high-profit clients?**"
+            ]
+          },
+          {
+            title: "Challenge 2: Are You Getting the Call?",
+            ask: "Ask yourself: When a client *lands* on your site...",
+            items: [
+              "Does your site look **professional and build instant trust?**",
+              "Does it **load instantly** on a mobile phone?",
+              "Are your **5-star reviews** front-and-centre?",
+              "Is there a clear **\"Book a Quote\" button** on every page?",
+              "Is your site **actually turning visitors into calls?**"
+            ]
+          }
+        ],
+        bridge: "If you found yourself answering 'no' or 'I don't know' to any of these questions, that's not a problem—it's an opportunity. You've just found the exact areas where growth is possible. \n\n Our **6-Pillar Growth System** is our signature process for turning those questions into answers, ensuring your entire digital presence functions perfectly to find, trust, and convert your ideal clients."
       },
+
+      // --- 'befound' and 'trust' objects are removed ---
+
       why: {
         title: "Why Axis Digital?",
         sub: "We're a Results-Driven Partner, Not Just Another Agency.",
@@ -293,6 +323,7 @@
           {
             icon: "canada",
             title: "Coast-to-Coast Experts",
+            // --- FIX: REMOVED THE ERRONEOUS, DUPLICATE 'desc' LINE ---
             desc: "With 34+ years of combined experience, our team in Quebec and B.C. is built to serve Canadian contractors."
           }
         ]
@@ -436,7 +467,7 @@
             label2: "New Followers",
           },
           {
-            image: "https://placehold.co/600x400/0F1115/FFFFFF?text=Build+Co.",
+            image: "httpsci://placehold.co/600x400/0F1115/FFFFFF?text=Build+Co.",
             title: "General Build Co.",
             metric1: "2x",
             label1: "Quote Requests",
@@ -506,7 +537,7 @@
             quote: "Just do it. I wasted so much time with other agencies. Axis Digital is the real deal. No fluff, just results.",
             name: "Kevin H.",
             company: "Harborview Electric",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpsci://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "The 'Structured Process' is exactly what it is. They were clear, on time, and delivered a website that's already getting us new work.",
@@ -518,7 +549,7 @@
             quote: "Finally, an agency that understands contractors. I can focus on my job sites and trust that my marketing is handled.",
             name: "Chris V.",
             company: "Vellacott Plumbing",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpsci://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           }
         ]
       },
@@ -735,7 +766,7 @@
                           src={t.image}
                           alt={t.name}
                           className="w-14 h-14 rounded-full object-cover"
-                          onError={(e) => e.target.src = 'https://placehold.co/100x100/cccccc/FFFFFF?text=Client'}
+                          onError={(e) => e.target.src = 'httpsci://placehold.co/100x100/cccccc/FFFFFF?text=Client'}
                         />
                         <div>
                           <div className="font-bold text-lg text-[color:var(--color-primary)]">{t.name}</div>
@@ -785,7 +816,7 @@
                           src={t.image}
                           alt={t.name}
                           className="w-14 h-14 rounded-full object-cover"
-                          onError={(e) => e.target.src = 'https://placehold.co/100x100/cccccc/FFFFFF?text=Client'}
+                          onError={(e) => e.target.src = 'httpsci://placehold.co/100x100/cccccc/FFFFFF?text=Client'}
                         />
                         <div>
                           <div className="font-bold text-lg text-[color:var(--color-primary)]">{t.name}</div>
@@ -1026,11 +1057,11 @@
           schemaLocalBusiness.type = 'application/ld+json';
           schemaLocalBusiness.innerHTML = `
             {
-              "@context": "https://schema.org",
+              "@context": "httpsci://schema.org",
               "@type": "LocalBusiness",
               "name": "${brand.name}",
               "description": "${seo.description}",
-              "url": "https://axisdigital.ca",
+              "url": "httpsci://axisdigital.ca",
               "telephone": "${contact.phone}",
               "address": {
                 "@type": "PostalAddress",
@@ -1052,7 +1083,7 @@
           schemaFaq.type = 'application/ld+json';
           schemaFaq.innerHTML = `
             {
-              "@context": "https://schema.org",
+              "@context": "httpsci://schema.org",
               "@type": "FAQPage",
               "mainEntity": [
                 ${faq.items.map(item => `{
@@ -1142,61 +1173,49 @@
             </div>
             <style>{`
               #mobile-menu-toggle:checked + #mobile-menu {
-                max-h-screen;
+                max-height: 100vh;
               }
             `}</style>
           </header>
 
           {/* --- MAIN CONTENT --- */}
           <main>
-            {/* --- HERO SECTION (NEW VSL LAYOUT) --- */}
-            <div className="bg-white">
-              <Section id="hero" className="py-20 md:py-32">
+            
+            {/* === NEW HERO SECTION === */}
+            <div className="bg-[color:var(--color-primary)]">
+              {/* Increased padding for impact */}
+              <Section id="hero" className="py-24 md:py-40">
                 <div className="max-w-4xl mx-auto text-center">
-                  {/* 1. Title Above */}
+                  
+                  {/* 1. New Headline */}
                   <div className="reveal">
-                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-[color:var(--color-primary)]">
-                      {c.hero.h1}
+                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-white">
+                      We Help Contractors & Trades Get <span style={{color: "var(--color-accent)"}}>Booked Solid.</span>
                     </h1>
                   </div>
 
-                  {/* 2. Centered Image/Video (with VSL hint) */}
-                  <div className="reveal my-8 md:my-12 relative" style={{ transitionDelay: '100ms' }}>
-                    <img
-                      src={c.hero.imageUrl}
-                      alt="Axis Digital Partners"
-                      className="rounded-[var(--radius)] shadow-xl w-full max-w-3xl mx-auto h-auto object-cover"
-                      onError={(e) => e.target.src = 'https://placehold.co/800x600/cccccc/FFFFFF?text=Image+Loading...'}
-                    />
-                    {/* VSL Play Button Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <button 
-                        className="bg-white/20 backdrop-blur-sm rounded-full w-20 h-20 md:w-24 md:h-24 flex items-center justify-center text-white transition-all hover:scale-110 hover:bg-white/40"
-                        aria-label="Play video"
-                      >
-                        <svg className="w-12 h-12 md:w-16 md:h-16 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" /></svg>
-                      </button>
-                    </div>
-                  </div>
+                  {/* 2. Image/Video Removed */}
 
-                  {/* 3. Sub-headline & CTA Below */}
+                  {/* 3. New Sub-headline & CTA */}
                   <div className="reveal" style={{ transitionDelay: '200ms' }}>
-                    <p className="mt-5 text-lg text-gray-700 max-w-2xl mx-auto">
+                    <p className="mt-5 text-xl text-gray-200 max-w-2xl mx-auto">
                       {c.hero.sub}
                     </p>
                     
-                    {/* Updated CTA to open modal */}
+                    {/* New CTA Text */}
                     <button
                       onClick={() => setModalOpen(true)}
                       className="inline-block mt-8 px-10 py-4 rounded-full font-semibold text-white transition-transform transform hover:scale-105"
                       style={{ background: "var(--color-accent)", boxShadow: "var(--shadow)" }}
                     >
-                      Book Your Free Consultation
+                      {c.hero.cta}
                     </button>
                   </div>
                 </div>
               </Section>
             </div>
+            {/* === END NEW HERO SECTION === */}
+
             
             {/* --- NEW EMPATHY SECTION --- */}
             <Section id="empathy" className="bg-gray-50">
@@ -1230,51 +1249,54 @@
               </div>
             </Section>
 
-            {/* --- NEW UNIFIED "PROBLEM" SECTION --- */}
-            <Section id="problem" className="bg-white">
+            {/* --- NEW MERGED "GROWTH AUDIT" SECTION --- */}
+            <Section id="growth-audit" className="bg-white">
               <div className="text-center">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
-                  {c.problem.title}
+                  {c.growthAudit.title}
                 </h2>
                 <p className="text-lg text-gray-700 mt-4 max-w-3xl mx-auto opacity-0 translate-y-2 reveal" style={{ transitionDelay: '100ms' }}>
-                  {c.problem.sub}
+                  {c.growthAudit.sub}
                 </p>
               </div>
+              
               <div className="grid md:grid-cols-2 gap-8 mt-12 max-w-5xl mx-auto">
-                {/* Column 1: The "Piecemeal" Approach */}
-                <div className="bg-red-50 p-8 rounded-[var(--radius)] shadow-lg reveal" style={{ transitionDelay: '200ms' }}>
-                  <div className="flex items-center gap-3 mb-6">
-                    <WhyUsIcons.trustX className="w-8 h-8 text-red-500 flex-shrink-0" />
-                    <h3 className="text-2xl font-bold text-red-700">{c.problem.left.title}</h3>
-                  </div>
-                  <p className="text-lg text-gray-700 mb-6">{c.problem.left.desc}</p>
-                  <div className="text-center p-6 bg-white rounded-lg border-2 border-red-200">
-                    <span className="font-semibold text-gray-700">Paid Ads</span>
-                    <span className="text-red-500 font-bold text-2xl mx-2">→</span>
-                    <span className="font-semibold text-gray-700">Outdated Website</span>
-                    <span className="text-red-500 font-bold text-2xl mx-2">→</span>
-                    <span className="font-semibold text-red-700">No Calls</span>
-                  </div>
-                </div>
-                {/* Column 2: The "Axis" System */}
-                <div className="bg-green-50 p-8 rounded-[var(--radius)] shadow-lg reveal" style={{ transitionDelay: '300ms' }}>
-                  <div className="flex items-center gap-3 mb-6">
-                    <WhyUsIcons.trustCheck className="w-8 h-8 text-green-600 flex-shrink-0" />
-                    <h3 className="text-2xl font-bold text-green-800">{c.problem.right.title}</h3>
-                  </div>
-                  <p className="text-lg text-gray-700 mb-6">{c.problem.right.desc}</p>
-                  <div className="text-center p-6 bg-white rounded-lg border-2 border-green-200">
-                    <span className="font-semibold text-gray-700">Paid Ads</span>
-                    <span className="text-green-600 font-bold text-2xl mx-2">→</span>
-                    <span className="font-semibold text-gray-700">Pro Website</span>
-                    <span className="text-green-600 font-bold text-2xl mx-2">→</span>
-                    <span className="font-semibold text-green-800">Booked Jobs</span>
-                  </div>
-                </div>
+                {c.growthAudit.columns.map((col, i) => {
+                  const CheckIcon = WhyUsIcons.check;
+                  return (
+                    <div 
+                      key={i}
+                      className="p-8 bg-gray-50 rounded-[var(--radius)] shadow-lg reveal" 
+                      style={{ transitionDelay: `${(i + 2) * 100}ms` }}
+                    >
+                      <h3 className="text-2xl font-bold text-[color:var(--color-primary)] mb-4">{col.title}</h3>
+                      <p className="text-gray-600 font-semibold mb-6">{col.ask}</p>
+                      
+                      <ul className="space-y-3">
+                        {col.items.map((item, idx) => (
+                          <li key={idx} className="flex items-start">
+                            <span className="inline-block w-6 h-6 mt-1 mr-3 flex-shrink-0 text-green-600">
+                                <CheckIcon className="w-6 h-6" />
+                            </span>
+                            <span className="text-lg text-gray-700" dangerouslySetInnerHTML={{ __html: item }}></span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              <div className="mt-12 max-w-3xl mx-auto text-center reveal" style={{ transitionDelay: '400ms' }}>
+                <p 
+                  className="text-xl text-gray-700 leading-relaxed whitespace-pre-line"
+                  dangerouslySetInnerHTML={{ __html: c.growthAudit.bridge }}
+                ></p>
               </div>
             </Section>
             
-            {/* --- NEW UNIFIED "SYSTEM" SECTION (Replaces Services & Process) --- */}
+            {/* --- 6-PILLAR "SYSTEM" SECTION --- */}
+            {/* UPDATED: Background changed to gray-50 for alternating contrast */}
             <Section id="system" className="bg-gray-50">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
@@ -1291,6 +1313,7 @@
                     return (
                       <div key={i} className="process-step reveal" style={{ transitionDelay: `${(i + 2) * 100}ms` }}>
                         <div className="process-number">{i + 1}</div>
+                        {/* UPDATED: Card background changed to white for contrast */}
                         <div className="p-6 bg-white rounded-[var(--radius)] shadow-lg ml-4">
                           {Icon && (
                             <div className="w-12 h-12 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mb-3">
@@ -1308,6 +1331,7 @@
             </Section>
 
             {/* --- REVISED WHY US SECTION --- */}
+            {/* UPDATED: Background changed to white for alternating contrast */}
             <Section id="why" className="bg-white">
               <div className="text-center">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
@@ -1323,7 +1347,7 @@
                   return (
                     <div 
                       key={i} 
-                      className="p-6 bg-gray-50 rounded-[var(--radius)] shadow-lg text-center reveal"
+                      className="p-6 bg-gray-50 rounded-[var(--radius)] shadow-lg text-center reveal" /* <-- bg-gray-50 */
                       style={{ transitionDelay: `${(i + 1) * 100}ms` }}
                     >
                       {Icon && (
@@ -1340,6 +1364,7 @@
             </Section>
 
             {/* --- TEAM SECTION (REVISED) --- */}
+            {/* UPDATED: Background changed to gray-50 for alternating contrast */}
             <Section id="team" className="bg-gray-50">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
@@ -1355,14 +1380,14 @@
                 {c.team.members.map((m, i) => (
                   <div
                     key={i}
-                    className="flex flex-col items-center text-center bg-white p-6 rounded-[var(--radius)] shadow-lg reveal"
+                    className="flex flex-col items-center text-center bg-white p-6 rounded-[var(--radius)] shadow-lg reveal" /* <-- bg-white */
                     style={{ transitionDelay: `${(i + 2) * 100}ms` }}
                   >
                     <img
                       src={m.image}
                       alt={m.name}
                       className="w-32 h-32 rounded-full object-cover flex-shrink-0 mb-4"
-                      onError={(e) => e.target.src = 'https://placehold.co/400x400/cccccc/FFFFFF?text=Partner'}
+                      onError={(e) => e.target.src = 'httpsci://placehold.co/400x400/cccccc/FFFFFF?text=Partner'}
                     />
                     <div>
                       <h3 className="text-2xl font-bold text-[color:var(--color-primary)]">{m.name}</h3>
@@ -1405,7 +1430,7 @@
                       src={cs.image}
                       alt={cs.title}
                       className="aspect-[3/2] w-full object-cover bg-gray-200"
-                      onError={(e) => e.target.src = 'https://placehold.co/600x400/cccccc/FFFFFF?text=Project'}
+                      onError={(e) => e.target.src = 'httpsci://placehold.co/600x400/cccccc/FFFFFF?text=Project'}
                     />
                     <figcaption className="p-5">
                       <div className="font-bold text-lg text-[color:var(--color-primary)] mb-4">{cs.title}</div>
@@ -1508,3 +1533,4 @@
   </script>
 </body>
 </html>
+
