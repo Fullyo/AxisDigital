@@ -78,12 +78,6 @@
       color: white;
       font-size: 1.875rem; /* 30px */
       font-weight: 800;
-      /* --- FIX: BORDER COLOR --- 
-        The border color for the process number must match the section's
-        background color. I am setting this dynamically, but the JS
-        will need to know which color to use. 
-        Setting a default here, but will adjust in the 'system' section's JS/CSS.
-      */
       border: 6px solid #F8F9FA; /* Default: bg-gray-50 */
     }
     
@@ -106,28 +100,6 @@
   <script type="text/babel">
     
     // --- ICONS ---
-
-    /**
-     * NEW LOGO COMPONENT
-     * This is a minimal, strong 'A' representing an Axis and a Peak.
-     */
-    function AxisLogo({ className = "w-8 h-8", color = "currentColor" }) {
-      return (
-        <svg
-          className={className}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke={color}
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M2 20.5L12 3.5L22 20.5"></path>
-          <path d="M7 15.5H17"></path>
-        </svg>
-      );
-    }
 
     /**
      * Why Us Icons
@@ -156,7 +128,6 @@
             <path strokeLinecap="round" strokeLinejoin="round" d="M18 18l-6-6-6 6" />
         </svg>
       ),
-      // Icon for checklist
       check: (props) => (
          <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -165,8 +136,7 @@
     };
 
     /**
-     * NEW Empathy Icons
-     * A helper object to store simple SVGs for the new Empathy section.
+     * Empathy Icons
      */
     const EmpathyIcons = {
       schedule: (props) => (
@@ -174,9 +144,12 @@
           <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       ),
-      quality: (props) => (
+      gem: (props) => (
         <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4M14 3v4m-2-2h4M14 17v4m-2-2h4M9 3v4m-2-2h4M9 17v4m-2-2h4m9-1a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 21.5l-7-7.5h14l-7 7.5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 14l-2.5-3 9.5-8.5 9.5 8.5L19 14H5z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.5v19" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 14l7-11.5 7 11.5" />
         </svg>
       ),
       growth: (props) => (
@@ -187,7 +160,7 @@
     };
     
     /**
-     * System Icons (Used in new 6-Pillar System)
+     * System Icons
      */
     const SystemIcons = {
       consultation: (props) => (
@@ -202,7 +175,7 @@
       ),
       globe: (props) => (
         <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03 3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
         </svg>
       ),
       ads: (props) => (
@@ -218,57 +191,57 @@
       ai: (props) => (
         <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 0v6m0-6L9 13" />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0 3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
         </svg>
       )
     };
 
 
     // --- CONTENT OBJECT ---
-    // All text content for the site is managed here.
     const content = {
       brand: {
         name: "Axis Digital",
+        // --- FIX: Using the correct logo URL '...Axisdigitallogo1.png' for the header ---
+        logoUrl: "https://Axisdigital.b-cdn.net/Axisdigitallogo1.png", // Color logo for header
+        logoUrlWhite: "https://Axisdigital.b-cdn.net/Axisdigitallogo1.png", // White logo for footer
         tagline: "Your central partner for digital growth.",
         oneLiner: "We're your central partner, managing your complete digital presence—from web and SEO to ads and AI—so you win more jobs."
       },
-      // UPDATED NAV
       nav: [
         { name: "Home", href: "#home" },
-        { name: "The Problem", href: "#growth-audit" }, // <-- UPDATED LINK
+        { name: "The Problem", href: "#growth-audit" }, 
         { name: "Our System", href: "#system" },
         { name: "Our Team", href: "#team" },
         { name: "Proof", href: "#proof" },
         { name: "FAQ", href: "#faq" },
       ],
       hero: {
-        h1: "We Help Contractors & Trades Get Booked Solid.", // <-- UPDATED H1
-        sub: "We build your complete digital system—from web and SEO to ads and AI—to turn your online presence into a reliable source of new quote requests and booked jobs.", // <-- UPDATED SUB
-        cta: "Start Filling Your Schedule" // <-- NEW CTA
+        h1: "We Help Contractors & Trades Get Booked Solid.", 
+        sub: "We build your complete digital system—from web and SEO to ads and AI—to turn your online presence into a reliable source of new quote requests and booked jobs.", 
+        cta: "Start Filling Your Schedule",
+        videoUrl: "https://Axisdigital.b-cdn.net/Contractor_Arrives_at_Quebec_Job_Site.mp4"
       },
       empathy: {
-        title: "You're a Master of Your Trade, Not a Marketing Expert.", // <-- UPDATED TITLE
-        sub: "Your expertise is in building and crafting. Ours is in building the expert digital system that gets you the high-quality jobs you deserve.", // <-- UPDATED SUB
+        title: "You're a Master of Your Trade, Not a Marketing Expert.", 
+        sub: "Your expertise is in building and crafting. Ours is in building the expert digital system that gets you the high-quality jobs you deserve.", 
         pillars: [
           {
-            icon: "schedule",
-            title: "A Steady Flow of Work", // <-- UPDATED PILLAR 1
+            icon: "schedule", 
+            title: "A Predictable Stream of Jobs", 
             desc: "We build a predictable system that delivers a reliable stream of quote requests to keep your schedule full."
           },
           {
-            icon: "quality",
-            title: "Higher-Quality Clients", // <-- UPDATED PILLAR 2
+            icon: "gem", 
+            title: "Higher-Quality Clients", 
             desc: "Our system is designed to attract the profitable, ideal clients who value your craft, not just shop for the lowest price."
           },
           {
-            icon: "growth",
-            title: "Sustainable, Long-Term Growth", // <-- UPDATED PILLAR 3
+            icon: "growth", 
+            title: "Sustainable, Long-Term Growth", 
             desc: "You get a professional, automated system that lets you focus on your work, not on finding it."
           }
         ]
       },
-      
-      // --- NEW MERGED "GROWTH AUDIT" SECTION ---
       growthAudit: {
         title: "Your 2-Minute Growth Audit",
         sub: "A successful online system does two things: It gets you *found* by the right clients, and it *converts* them into booked jobs. How does yours stack up?",
@@ -298,9 +271,6 @@
         ],
         bridge: "If you found yourself answering 'no' or 'I don't know' to any of these questions, that's not a problem—it's an opportunity. You've just found the exact areas where growth is possible. \n\n Our **6-Pillar Growth System** is our signature process for turning those questions into answers, ensuring your entire digital presence functions perfectly to find, trust, and convert your ideal clients."
       },
-
-      // --- 'befound' and 'trust' objects are removed ---
-
       why: {
         title: "Why Axis Digital?",
         sub: "We're a Results-Driven Partner, Not Just Another Agency.",
@@ -323,12 +293,10 @@
           {
             icon: "canada",
             title: "Coast-to-Coast Experts",
-            // --- FIX: REMOVED THE ERRONEOUS, DUPLICATE 'desc' LINE ---
             desc: "With 34+ years of combined experience, our team in Quebec and B.C. is built to serve Canadian contractors."
           }
         ]
       },
-      // NEW UNIFIED "SYSTEM" SECTION (Replaces Services & Process)
       system: {
         title: "Our 6-Pillar Growth System",
         sub: "This is our proven, step-by-step process. We don't sell 'packages'—we audit your business against these 6 pillars. We fix what's broken, optimize what works, and build a custom plan that fills your schedule.",
@@ -427,7 +395,7 @@
             label2: "Booked Out",
           },
           {
-            image: "https://placehold.co/600x400/0F1115/FFFFFF?text=Landscaping+Co.",
+            image: "httpswww.AXISDigital.ca-placehold.co-600x400-0F1115-FFFFFF-text-Landscaping-Co..png",
             title: "Landscaping Co.",
             metric1: "20+",
             label1: "New 5-Star Reviews",
@@ -467,7 +435,7 @@
             label2: "New Followers",
           },
           {
-            image: "httpsci://placehold.co/600x400/0F1115/FFFFFF?text=Build+Co.",
+            image: "httpss://placehold.co/600x400/0F1115/FFFFFF?text=Build+Co.",
             title: "General Build Co.",
             metric1: "2x",
             label1: "Quote Requests",
@@ -483,73 +451,73 @@
             quote: "Axis Digital got our phones ringing. No BS, just results. They handled everything so we could stay on the tools.",
             name: "John D.",
             company: "Smith Roofing",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "We finally look professional online. Our new site is fast and our Google Business Profile is getting us calls every week.",
             name: "Marc L.",
             company: "Landscaping Pro",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "The best part is the clear communication. We know exactly what's happening and the results speak for themselves.",
             name: "David R.",
             company: "DR Electrical",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "We were invisible online. Axis built our foundation and now the phone actually rings. A total game-changer.",
             name: "Mike T.",
             company: "T-Bone's Plumbing",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "Our old site was from 2005. The new one they built is fast, professional, and actually works on my phone.",
             name: "Alex B.",
             company: "BuildCo Renovations",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpsCSS://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "They are a true partner. We started with a website and now they handle our Google Ads. The results are consistent every month.",
             name: "Emily C.",
             company: "Prestige Painting",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "I was skeptical about marketing, but these guys are different. They speak our language and focus on what matters: booked jobs.",
             name: "Jason P.",
             company: "Apex Roofing",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "Our Google Maps ranking is #1 in our city, and it's all thanks to the work Axis did on our Business Profile.",
             name: "Marco G.",
             company: "Gallo's Masonry",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpsCSS://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "We're a small team, and we don't have time for social media. Axis manages it all for us, and our brand looks great.",
             name: "Sarah K.",
             company: "K-Design Landscaping",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "Just do it. I wasted so much time with other agencies. Axis Digital is the real deal. No fluff, just results.",
             name: "Kevin H.",
             company: "Harborview Electric",
-            image: "httpsci://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "The 'Structured Process' is exactly what it is. They were clear, on time, and delivered a website that's already getting us new work.",
             name: "Tom W.",
             company: "Westcoast Builders",
-            image: "https://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           },
           {
             quote: "Finally, an agency that understands contractors. I can focus on my job sites and trust that my marketing is handled.",
             name: "Chris V.",
             company: "Vellacott Plumbing",
-            image: "httpsci://placehold.co/100x100/0C4853/FFFFFF?text=Client"
+            image: "httpss://placehold.co/100x100/0C4853/FFFFFF?text=Client"
           }
         ]
       },
@@ -766,7 +734,7 @@
                           src={t.image}
                           alt={t.name}
                           className="w-14 h-14 rounded-full object-cover"
-                          onError={(e) => e.target.src = 'httpsci://placehold.co/100x100/cccccc/FFFFFF?text=Client'}
+                          onError={(e) => e.target.src = 'httpss://placehold.co/100x100/cccccc/FFFFFF?text=Client'}
                         />
                         <div>
                           <div className="font-bold text-lg text-[color:var(--color-primary)]">{t.name}</div>
@@ -816,7 +784,7 @@
                           src={t.image}
                           alt={t.name}
                           className="w-14 h-14 rounded-full object-cover"
-                          onError={(e) => e.target.src = 'httpsci://placehold.co/100x100/cccccc/FFFFFF?text=Client'}
+                          onError={(e) => e.target.src = 'httpss://placehold.co/100x100/cccccc/FFFFFF?text=Client'}
                         />
                         <div>
                           <div className="font-bold text-lg text-[color:var(--color-primary)]">{t.name}</div>
@@ -1057,11 +1025,11 @@
           schemaLocalBusiness.type = 'application/ld+json';
           schemaLocalBusiness.innerHTML = `
             {
-              "@context": "httpsci://schema.org",
+              "@context": "httpss://schema.org",
               "@type": "LocalBusiness",
               "name": "${brand.name}",
               "description": "${seo.description}",
-              "url": "httpsci://axisdigital.ca",
+              "url": "httpss://axisdigital.ca",
               "telephone": "${contact.phone}",
               "address": {
                 "@type": "PostalAddress",
@@ -1083,7 +1051,7 @@
           schemaFaq.type = 'application/ld+json';
           schemaFaq.innerHTML = `
             {
-              "@context": "httpsci://schema.org",
+              "@context": "httpss://schema.org",
               "@type": "FAQPage",
               "mainEntity": [
                 ${faq.items.map(item => `{
@@ -1127,11 +1095,13 @@
             <div className="max-w-6xl mx-auto px-4">
               <div className="flex justify-between items-center h-20 md:h-24">
                 {/* Logo */}
-                <a href="#home" className="flex items-center gap-2 group" aria-label="Axis Digital Homepage">
-                  <AxisLogo className="w-7 h-7 md:w-8 md:h-8 text-[color:var(--color-primary)] transition-transform group-hover:scale-110" />
-                  <span className="text-xl md:text-2xl font-extrabold text-[color:var(--color-primary)] tracking-tight">
-                    {c.brand.name}
-                  </span>
+                <a href="#home" className="flex items-center group" aria-label="Axis Digital Homepage">
+                  <img 
+                    src={c.brand.logoUrl} 
+                    alt="Axis Digital Logo" 
+                    className="w-32 md:w-40 h-auto object-contain transition-transform group-hover:scale-105"
+                    onError={(e) => e.target.style.display = 'none'}
+                  />
                 </a>
 
                 {/* Desktop Nav */}
@@ -1181,28 +1151,39 @@
           {/* --- MAIN CONTENT --- */}
           <main>
             
-            {/* === NEW HERO SECTION === */}
-            <div className="bg-[color:var(--color-primary)]">
-              {/* Increased padding for impact */}
+            {/* === UPDATED HERO SECTION WITH VIDEO === */}
+            {/* The section container is now relative to hold the video */}
+            <div className="relative overflow-hidden">
               <Section id="hero" className="py-24 md:py-40">
-                <div className="max-w-4xl mx-auto text-center">
-                  
-                  {/* 1. New Headline */}
+                {/* Video Background */}
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover z-0"
+                  poster="httpss://placehold.co/1920x1080/0C4853/FFFFFF?text=Loading+Video..."
+                >
+                  <source src={c.hero.videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-black/60 z-10"></div>
+
+                {/* Content: z-20 so it sits on top of the overlay */}
+                <div className="max-w-4xl mx-auto text-center relative z-20">
                   <div className="reveal">
                     <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-white">
                       We Help Contractors & Trades Get <span style={{color: "var(--color-accent)"}}>Booked Solid.</span>
                     </h1>
                   </div>
 
-                  {/* 2. Image/Video Removed */}
-
-                  {/* 3. New Sub-headline & CTA */}
                   <div className="reveal" style={{ transitionDelay: '200ms' }}>
                     <p className="mt-5 text-xl text-gray-200 max-w-2xl mx-auto">
                       {c.hero.sub}
                     </p>
                     
-                    {/* New CTA Text */}
                     <button
                       onClick={() => setModalOpen(true)}
                       className="inline-block mt-8 px-10 py-4 rounded-full font-semibold text-white transition-transform transform hover:scale-105"
@@ -1214,10 +1195,10 @@
                 </div>
               </Section>
             </div>
-            {/* === END NEW HERO SECTION === */}
+            {/* === END HERO SECTION === */}
 
             
-            {/* --- NEW EMPATHY SECTION --- */}
+            {/* --- EMPATHY SECTION --- */}
             <Section id="empathy" className="bg-gray-50">
               <div className="text-center">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
@@ -1249,7 +1230,7 @@
               </div>
             </Section>
 
-            {/* --- NEW MERGED "GROWTH AUDIT" SECTION --- */}
+            {/* --- "GROWTH AUDIT" SECTION --- */}
             <Section id="growth-audit" className="bg-white">
               <div className="text-center">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
@@ -1296,7 +1277,6 @@
             </Section>
             
             {/* --- 6-PILLAR "SYSTEM" SECTION --- */}
-            {/* UPDATED: Background changed to gray-50 for alternating contrast */}
             <Section id="system" className="bg-gray-50">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
@@ -1313,7 +1293,6 @@
                     return (
                       <div key={i} className="process-step reveal" style={{ transitionDelay: `${(i + 2) * 100}ms` }}>
                         <div className="process-number">{i + 1}</div>
-                        {/* UPDATED: Card background changed to white for contrast */}
                         <div className="p-6 bg-white rounded-[var(--radius)] shadow-lg ml-4">
                           {Icon && (
                             <div className="w-12 h-12 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mb-3">
@@ -1330,8 +1309,7 @@
               </div>
             </Section>
 
-            {/* --- REVISED WHY US SECTION --- */}
-            {/* UPDATED: Background changed to white for alternating contrast */}
+            {/* --- "WHY US" SECTION --- */}
             <Section id="why" className="bg-white">
               <div className="text-center">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
@@ -1347,11 +1325,11 @@
                   return (
                     <div 
                       key={i} 
-                      className="p-6 bg-gray-50 rounded-[var(--radius)] shadow-lg text-center reveal" /* <-- bg-gray-50 */
+                      className="p-6 bg-gray-50 rounded-[var(--radius)] shadow-lg text-center reveal"
                       style={{ transitionDelay: `${(i + 1) * 100}ms` }}
                     >
                       {Icon && (
-                        <div className="w-16 h-16 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div className="w-16 h-16 bg-[color:var(--color-accent)]/10 text-[color:var(--color-accent)] rounded-full flex items-center justify-center mx-auto mb-.4">
                           <Icon className="w-8 h-8" />
                         </div>
                       )}
@@ -1363,8 +1341,7 @@
               </div>
             </Section>
 
-            {/* --- TEAM SECTION (REVISED) --- */}
-            {/* UPDATED: Background changed to gray-50 for alternating contrast */}
+            {/* --- TEAM SECTION --- */}
             <Section id="team" className="bg-gray-50">
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
@@ -1375,19 +1352,18 @@
                 </p>
               </div>
               
-              {/* Unified 6-person grid */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
                 {c.team.members.map((m, i) => (
                   <div
                     key={i}
-                    className="flex flex-col items-center text-center bg-white p-6 rounded-[var(--radius)] shadow-lg reveal" /* <-- bg-white */
+                    className="flex flex-col items-center text-center bg-white p-6 rounded-[var(--radius)] shadow-lg reveal"
                     style={{ transitionDelay: `${(i + 2) * 100}ms` }}
                   >
                     <img
                       src={m.image}
                       alt={m.name}
                       className="w-32 h-32 rounded-full object-cover flex-shrink-0 mb-4"
-                      onError={(e) => e.target.src = 'httpsci://placehold.co/400x400/cccccc/FFFFFF?text=Partner'}
+                      onError={(e) => e.target.src = 'httpss://placehold.co/400x400/cccccc/FFFFFF?text=Partner'}
                     />
                     <div>
                       <h3 className="text-2xl font-bold text-[color:var(--color-primary)]">{m.name}</h3>
@@ -1430,13 +1406,14 @@
                       src={cs.image}
                       alt={cs.title}
                       className="aspect-[3/2] w-full object-cover bg-gray-200"
-                      onError={(e) => e.target.src = 'httpsci://placehold.co/600x400/cccccc/FFFFFF?text=Project'}
+                      onError={(e) => e.target.src = 'httpss://placehold.co/600x400/cccccc/FFFFFF?text=Project'}
                     />
                     <figcaption className="p-5">
                       <div className="font-bold text-lg text-[color:var(--color-primary)] mb-4">{cs.title}</div>
                       <div className="grid grid-cols-2 gap-4 text-center">
                         <div>
                           <div className="text-3xl font-extrabold text-[color:var(--color-primary)]">{cs.metric1}</div>
+                          {/* --- FIX: Corrected typo from classNameJ to className --- */}
                           <div className="text-xs text-[color:var(--color-muted)]">{cs.label1}</div>
                         </div>
                         <div>
@@ -1450,7 +1427,7 @@
               </div>
             </Section>
             
-            {/* --- TESTIMONIALS SECTION (NOW CAROUSEL) --- */}
+            {/* --- TESTIMONIALS SECTION --- */}
             <Section id="testimonials" className="bg-white">
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-12 text-center text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
                 {c.testimonials.title}
@@ -1460,7 +1437,7 @@
               </div>
             </Section>
 
-            {/* --- FAQ SECTION (UPDATED) --- */}
+            {/* --- FAQ SECTION --- */}
             <Section id="faq" className="bg-gray-50">
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-12 text-center text-[color:var(--color-primary)] opacity-0 translate-y-2 reveal">
                 {c.faq.title}
@@ -1471,7 +1448,7 @@
             </Section>
           </main>
 
-          {/* --- REVISED FOOTER (CONTACT) --- */}
+          {/* --- FOOTER (CONTACT) --- */}
           <footer id="contact" className="bg-[color:var(--color-primary)] text-white pt-16 md:pt-24 pb-12">
             <div className="max-w-4xl mx-auto px-4 text-center">
               <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4 opacity-0 translate-y-2 reveal">
@@ -1491,13 +1468,25 @@
               </div>
             </div>
             
-            {/* New Footer Bottom */}
+            {/* Footer Bottom */}
             <div className="max-w-6xl mx-auto px-4">
               <hr className="mt-16 md:mt-24 border-t border-white/10" />
               <div className="flex flex-col md:flex-row justify-between items-center pt-8 text-gray-400">
-                <div className="flex items-center gap-2 mb-4 md:mb-0">
-                  <AxisLogo className="w-6 h-6" />
-                  <span>© {new Date().getFullYear()} {c.brand.name}. All rights reserved.</span>
+                <div className="flex items-center gap-4 mb-4 md:mb-0">
+                  {/* --- 
+                    FIX: 
+                    1. Using the '...Axisdigitallogo1.png' URL from the content object.
+                    2. Applying the CSS filter to it to ensure it's 100% white.
+                    --- 
+                  */}
+                  <img 
+                    src={c.brand.logoUrlWhite} 
+                    alt="Axis Digital Logo" 
+                    className="w-24 md:w-32 h-auto object-contain"
+                    style={{ filter: "brightness(0) invert(1) grayscale(100%)" }}
+                    onError={(e) => e.target.style.display = 'none'}
+                  />
+                  <span className="text-sm pt-2">© {new Date().getFullYear()}. All rights reserved.</span>
                 </div>
                 <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
                   {c.nav.map((item) => (
